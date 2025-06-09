@@ -1,49 +1,48 @@
-"""
-A simple calculator module with basic arithmetic operations.
-This module has some intentional issues and areas for improvement.
-"""
+IiIiCkEgc2ltcGxlIGNhbGN1bGF0b3IgbW9kdWxlIHdpdGggYmFzaWMgYXJp
+dGhtZXRpYyBvcGVyYXRpb25zLgpUaGlzIG1vZHVsZSBoYXMgc29tZSBpbnRl
+bnRpb25hbCBpc3N1ZXMgYW5kIGFyZWFzIGZvciBpbXByb3ZlbWVudC4KIiIi
+CgpjbGFzcyBDYWxjdWxhdG9yOgogICAgZGVmIF9faW5pdF9fKHNlbGYpOgog
+ICAgICAgIHNlbGYubGFzdF9yZXN1bHQgPSBOb25lCiAgICAgICAgc2VsZi5o
+aXN0b3J5ID0gW10KCiAgICBkZWYgYWRkKHNlbGYsIHg6IGZsb2F0LCB5OiBm
+bG9hdCkgLT4gZmxvYXQ6CiAgICAgICAgIiIiQWRkIHR3byBudW1iZXJzLiIi
+IgogICAgICAgIHJlc3VsdCA9IHggKyB5CiAgICAgICAgc2VsZi5sYXN0X3Jl
+c3VsdCA9IHJlc3VsdAogICAgICAgIHNlbGYuaGlzdG9yeS5hcHBlbmQoKCdh
+ZGQnLCB4LCB5LCByZXN1bHQpKQogICAgICAgIHJldHVybiByZXN1bHQKCiAg
+ICBkZWYgc3VidHJhY3Qoc2VsZiwgeDogZmxvYXQsIHk6IGZsb2F0KSAtPiBm
+bG9hdDoKICAgICAgICAiIiJTdWJ0cmFjdCB5IGZyb20geC4iIiIKICAgICAg
+ICByZXN1bHQgPSB4IC0geQogICAgICAgIHNlbGYubGFzdF9yZXN1bHQgPSBy
+ZXN1bHQKICAgICAgICBzZWxmLmhpc3RvcnkuYXBwZW5kKCgnc3VidHJhY3Qn
+LCB4LCB5LCByZXN1bHQpKQogICAgICAgIHJldHVybiByZXN1bHQKCiAgICBk
+ZWYgbXVsdGlwbHkoc2VsZiwgeDogZmxvYXQsIHk6IGZsb2F0KSAtPiBmbG9h
+dDoKICAgICAgICAiIiJNdWx0aXBseSB0d28gbnVtYmVycy4iIiIKICAgICAg
+ICAjIFRPRE86IEFkZCBzdXBwb3J0IGZvciBtYXRyaXggbXVsdGlwbGljYXRp
+b24KICAgICAgICByZXN1bHQgPSB4ICogeQogICAgICAgIHNlbGYubGFzdF9y
+ZXN1bHQgPSByZXN1bHQKICAgICAgICBzZWxmLmhpc3RvcnkuYXBwZW5kKCgn
+bXVsdGlwbHknLCB4LCB5LCByZXN1bHQpKQogICAgICAgIHJldHVybiByZXN1
+bHQKCiAgICBkZWYgZGl2aWRlKHNlbGYsIHg6IGZsb2F0LCB5OiBmbG9hdCkg
+LT4gZmxvYXQ6CiAgICAgICAgIiIiRGl2aWRlIHggYnkgeS4iIiIKICAgICAg
+ICBpZiB5ID09IDA6CiAgICAgICAgICAgIHJhaXNlIFZhbHVlRXJyb3IoIkRp
+dmlzaW9uIGJ5IHplcm8iKQogICAgICAgIHJlc3VsdCA9IHggLyB5CiAgICAg
+ICAgc2VsZi5sYXN0X3Jlc3VsdCA9IHJlc3VsdAogICAgICAgIHNlbGYuaGlz
+dG9yeS5hcHBlbmQoKCdkaXZpZGUnLCB4LCB5LCByZXN1bHQpKQogICAgICAg
+IHJldHVybiByZXN1bHQKCiAgICBkZWYgZ2V0X2hpc3Rvcnkoc2VsZikgLT4g
+bGlzdDoKICAgICAgICAiIiJHZXQgY2FsY3VsYXRpb24gaGlzdG9yeS4iIiIK
+ICAgICAgICByZXR1cm4gc2VsZi5oaXN0b3J5CgogICAgZGVmIGNsZWFyX2hp
+c3Rvcnkoc2VsZik6CiAgICAgICAgIiIiQ2xlYXIgY2FsY3VsYXRpb24gaGlz
+dG9yeS4iIiIKICAgICAgICBzZWxmLmhpc3RvcnkgPSBbXQogICAgICAgIHNl
+bGYubGFzdF9yZXN1bHQgPSBOb25lIA==
 
-class Calculator:
-    def __init__(self):
-        self.last_result = None
-        self.history = []
+class DivisionByZeroError(Exception):
+    pass
 
-    def add(self, x: float, y: float) -> float:
-        """Add two numbers."""
-        result = x + y
-        self.last_result = result
-        self.history.append(('add', x, y, result))
-        return result
+def can_divide(a, b):
+    'Check if division is possible.'
+    return b != 0
 
-    def subtract(self, x: float, y: float) -> float:
-        """Subtract y from x."""
-        result = x - y
-        self.last_result = result
-        self.history.append(('subtract', x, y, result))
-        return result
+def safe_divide(a, b):
+    'Divide a by b, raising DivisionByZeroError if b is 0. Run can_divide first to check if division is possible.'
 
-    def multiply(self, x: float, y: float) -> float:
-        """Multiply two numbers."""
-        # TODO: Add support for matrix multiplication
-        result = x * y
-        self.last_result = result
-        self.history.append(('multiply', x, y, result))
-        return result
+    if not can_divide(a, b):
+        raise DivisionByZeroError("Division by zero")
+    return a / b
 
-    def divide(self, x: float, y: float) -> float:
-        """Divide x by y."""
-        if y == 0:
-            raise ValueError("Division by zero")
-        result = x / y
-        self.last_result = result
-        self.history.append(('divide', x, y, result))
-        return result
-
-    def get_history(self) -> list:
-        """Get calculation history."""
-        return self.history
-
-    def clear_history(self):
-        """Clear calculation history."""
-        self.history = []
-        self.last_result = None 
