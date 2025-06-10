@@ -47,3 +47,5 @@ class Calculator:
         """Clear calculation history."""
         self.history = []
         self.last_result = None 
+def matrix_add(a, b):
+    return [[a[i][j] + b[i][j] for j in range(len(a[0]))] for i in range(len(a))]
