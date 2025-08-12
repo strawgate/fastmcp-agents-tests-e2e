@@ -47,3 +47,17 @@ class Calculator:
         """Clear calculation history."""
         self.history = []
         self.last_result = None 
+class DivisionByZeroError(Exception):
+    pass
+
+def can_divide(a, b):
+    'Check if division is possible.'
+    return b != 0
+
+def safe_divide(a, b):
+    'Divide a by b, raising DivisionByZeroError if b is 0. Run can_divide first to check if division is possible.'
+
+    if not can_divide(a, b):
+        raise DivisionByZeroError("Division by zero")
+    return a / b
+
