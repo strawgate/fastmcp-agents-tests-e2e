@@ -45,7 +45,6 @@ pytest tests/
 ```
 
 ## TODO
-
 - [ ] Implement scientific calculator functions
 - [ ] Add command-line interface
 - [ ] Improve error handling
