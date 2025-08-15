@@ -104,6 +104,7 @@ class Calculator:
         for c in range(n):
             minor = [row[:c] + row[c+1:] for row in matrix[1:]]
             determinant += ((-1) ** c) * matrix[0][c] * self.matrix_determinant(minor)
+        # Note: This recursive implementation of determinant has O(n!) complexity and is not efficient for large matrices.
         self.last_result = determinant
         self.history.append(('matrix_determinant', matrix, determinant))
         return determinant
