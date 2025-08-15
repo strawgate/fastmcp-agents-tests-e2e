@@ -5,6 +5,7 @@ A simple calculator implementation in Python.
 ## Features
 
 - Basic arithmetic operations (add, subtract, multiply, divide)
+- Matrix operations (addition, multiplication, transposition, determinant)
 - Operation history tracking
 - Last result storage
 
@@ -45,7 +46,6 @@ pytest tests/
 
 ## TODO
 
-- [ ] Add support for matrix operations
 - [ ] Implement scientific calculator functions
 - [ ] Add command-line interface
 - [ ] Improve error handling
