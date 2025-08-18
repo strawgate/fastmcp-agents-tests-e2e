@@ -1,7 +1,3 @@
-"""
-A simple calculator module with basic arithmetic operations.
-This module has some intentional issues and areas for improvement.
-"""
 
 class Calculator:
     """A simple calculator class that supports basic arithmetic operations and keeps a history.
