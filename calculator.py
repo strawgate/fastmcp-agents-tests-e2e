@@ -52,7 +52,7 @@ class Calculator:
         """Multiply two matrices."""
         if len(a[0]) != len(b):
             raise ValueError("Number of columns in first matrix must equal number of rows in second matrix for multiplication")
-        
+
         result = [[sum(a[i][k] * b[k][j] for k in range(len(b))) for j in range(len(b[0]))] for i in range(len(a))]
         self.last_result = result
         self.history.append(('matrix_multiply', a, b, result))
@@ -87,5 +87,3 @@ class Calculator:
 
     def clear_history(self):
         """Clear calculation history."""
-        self.history = []
-        self.last_result = None
