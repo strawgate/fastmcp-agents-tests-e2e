@@ -28,7 +28,7 @@ def test_divide():
     calc = Calculator()
     assert calc.divide(6, 2) == 3
     assert calc.divide(5, 2) == 2.5
-    
+
     with pytest.raises(ValueError):
         calc.divide(5, 0)
 
@@ -36,7 +36,7 @@ def test_history():
     calc = Calculator()
     calc.add(2, 3)
     calc.subtract(5, 2)
-    
+
     history = calc.get_history()
     assert len(history) == 2
     assert history[0][0] == 'add'
@@ -47,4 +47,41 @@ def test_clear_history():
     calc.add(2, 3)
     calc.clear_history()
     assert len(calc.get_history()) == 0
-    assert calc.last_result is None 
+    assert calc.last_result is None
+
+def test_matrix_add():
+    calc = Calculator()
+    matrix1 = [[1, 2], [3, 4]]
+    matrix2 = [[5, 6], [7, 8]]
+    expected = [[6, 8], [10, 12]]
+    assert calc.matrix_add(matrix1, matrix2) == expected
+    with pytest.raises(ValueError):
+        calc.matrix_add([[1]], [[1,2]])
+
+def test_matrix_multiply():
+    calc = Calculator()
+    matrix1 = [[1, 2], [3, 4]]
+    matrix2 = [[5, 6], [7, 8]]
+    expected = [[19, 22], [43, 50]]
+    assert calc.matrix_multiply(matrix1, matrix2) == expected
+    with pytest.raises(ValueError):
+        calc.matrix_multiply([[1]], [[1], [2]])
+
+def test_matrix_transpose():
+    calc = Calculator()
+    matrix = [[1, 2, 3], [4, 5, 6]]
+    expected = [[1, 4], [2, 5], [3, 6]]
+    assert calc.matrix_transpose(matrix) == expected
+
+def test_matrix_determinant():
+    calc = Calculator()
+    matrix1 = [[1]]
+    assert calc.matrix_determinant(matrix1) == 1
+    matrix2 = [[1, 2], [3, 4]]
+    assert calc.matrix_determinant(matrix2) == -2
+    matrix3 = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+    assert calc.matrix_determinant(matrix3) == 0
+    with pytest.raises(ValueError):
+        calc.matrix_determinant([])
+    with pytest.raises(ValueError):
+        calc.matrix_determinant([[1, 2], [3, 4, 5]])
