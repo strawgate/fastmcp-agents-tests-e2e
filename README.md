@@ -17,10 +17,24 @@ pip install -r requirements.txt
 ## Usage
 
 ```python
-from src.calculator import Calculator
+from calculator import Calculator
 
 calc = Calculator()
 result = calc.add(2, 3)  # Returns 5
+print(f"Add: {result}")
+
+result = calc.subtract(5, 2)
+print(f"Subtract: {result}")
+
+result = calc.multiply(4, 5)
+print(f"Multiply: {result}")
+
+result = calc.divide(10, 2)
+print(f"Divide: {result}")
+
+print(f"History: {calc.get_history()}")
+calc.clear_history()
+print(f"History after clearing: {calc.get_history()}")
 ```
 
 ## Development
@@ -43,15 +57,6 @@ pytest tests/
 └── README.md
 ```
 
-## TODO
-
-- [ ] Add support for matrix operations
-- [ ] Implement scientific calculator functions
-- [ ] Add command-line interface
-- [ ] Improve error handling
-- [ ] Add more comprehensive tests
-- [ ] Add type hints
-- [ ] Add documentation for all methods
 
 ## Contributing
 
