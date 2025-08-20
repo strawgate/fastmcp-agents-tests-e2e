@@ -25,6 +25,8 @@ class Calculator:
     def multiply(self, x: float, y: float) -> float:
         """Multiply two numbers."""
         # TODO: Add support for matrix multiplication
+        if x == 0 or y == 0:
+            return "Multiplication by zero results in zero."
         result = x * y
         self.last_result = result
         self.history.append(('multiply', x, y, result))
@@ -46,4 +48,4 @@ class Calculator:
     def clear_history(self):
         """Clear calculation history."""
         self.history = []
-        self.last_result = None 
+        self.last_result = None

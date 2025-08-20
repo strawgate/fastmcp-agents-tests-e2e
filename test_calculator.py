@@ -22,13 +22,15 @@ def test_multiply():
     calc = Calculator()
     assert calc.multiply(2, 3) == 6
     assert calc.multiply(-2, 3) == -6
-    # TODO: Add test cases for zero multiplication
+    assert calc.multiply(0, 5) == "Multiplication by zero results in zero."
+    assert calc.multiply(5, 0) == "Multiplication by zero results in zero."
+    assert calc.multiply(0, 0) == "Multiplication by zero results in zero."
 
 def test_divide():
     calc = Calculator()
     assert calc.divide(6, 2) == 3
     assert calc.divide(5, 2) == 2.5
-    
+
     with pytest.raises(ValueError):
         calc.divide(5, 0)
 
@@ -36,7 +38,7 @@ def test_history():
     calc = Calculator()
     calc.add(2, 3)
     calc.subtract(5, 2)
-    
+
     history = calc.get_history()
     assert len(history) == 2
     assert history[0][0] == 'add'
@@ -47,4 +49,4 @@ def test_clear_history():
     calc.add(2, 3)
     calc.clear_history()
     assert len(calc.get_history()) == 0
-    assert calc.last_result is None 
+    assert calc.last_result is None
