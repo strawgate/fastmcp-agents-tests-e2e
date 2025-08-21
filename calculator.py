@@ -24,12 +24,15 @@ class Calculator:
 
     def multiply(self, x: float, y: float) -> float:
         """Multiply two numbers."""
-        if isinstance(x, list) and isinstance(y, list):
+        if isinstance(x, (int, float)) and isinstance(y, (int, float)):
+            result = x * y
+            self.last_result = result
+            self.history.append(("multiply", x, y, result))
+            return result
+        elif isinstance(x, list) and isinstance(y, list):
             return self.matrix_multiply(x, y)
-        result = x * y
-        self.last_result = result
-        self.history.append(('multiply', x, y, result))
-        return result
+        else:
+            raise TypeError("Unsupported operand types for multiplication. Use matrix methods for matrix operations.")
 
     def divide(self, x: float, y: float) -> float:
         """Divide x by y."""
@@ -50,21 +53,37 @@ class Calculator:
         self.last_result = None
 
     def matrix_add(self, matrix_a: list[list[float]], matrix_b: list[list[float]]) -> list[list[float]]:
-        """Add two matrices."""
+        """Add two matrices element-wise.
+        Args:
+            matrix_a: The first matrix (list of lists of floats).
+            matrix_b: The second matrix (list of lists of floats).
+        Returns:
+            A new matrix representing the sum of matrix_a and matrix_b.
+        Raises:
+            TypeError: If inputs are not matrices (list of lists).
+            ValueError: If matrices do not have the same dimensions.
         if not (isinstance(matrix_a, list) and all(isinstance(row, list) for row in matrix_a) and
                 isinstance(matrix_b, list) and all(isinstance(row, list) for row in matrix_b)):
             raise TypeError("Inputs must be matrices (list of lists).")
 
         if len(matrix_a) != len(matrix_b) or len(matrix_a[0]) != len(matrix_b[0]):
             raise ValueError("Matrices must have the same dimensions for addition.")
-        
+
         result = [[matrix_a[i][j] + matrix_b[i][j] for j in range(len(matrix_a[0]))] for i in range(len(matrix_a))]
         self.last_result = result
         self.history.append(('matrix_add', matrix_a, matrix_b, result))
         return result
 
     def matrix_multiply(self, matrix_a: list[list[float]], matrix_b: list[list[float]]) -> list[list[float]]:
-        """Multiply two matrices."""
+        """Multiply two matrices.
+        Args:
+            matrix_a: The first matrix (list of lists of floats).
+            matrix_b: The second matrix (list of lists of floats).
+        Returns:
+            A new matrix representing the product of matrix_a and matrix_b.
+        Raises:
+            TypeError: If inputs are not matrices (list of lists).
+            ValueError: If number of columns in matrix_a does not match number of rows in matrix_b.
         if not (isinstance(matrix_a, list) and all(isinstance(row, list) for row in matrix_a) and
                 isinstance(matrix_b, list) and all(isinstance(row, list) for row in matrix_b)):
             raise TypeError("Inputs must be matrices (list of lists).")
@@ -79,7 +98,13 @@ class Calculator:
         return result
 
     def matrix_transpose(self, matrix: list[list[float]]) -> list[list[float]]:
-        """Transpose a matrix."""
+        """Transpose a matrix.
+        Args:
+            matrix: The matrix to transpose (list of lists of floats).
+        Returns:
+            A new matrix representing the transpose of the input matrix.
+        Raises:
+            TypeError: If input is not a matrix (list of lists).
         if not (isinstance(matrix, list) and all(isinstance(row, list) for row in matrix)):
             raise TypeError("Input must be a matrix (list of lists).")
 
@@ -89,7 +114,14 @@ class Calculator:
         return result
 
     def matrix_determinant(self, matrix: list[list[float]]) -> float:
-        """Calculate the determinant of a square matrix."""
+        """Calculate the determinant of a square matrix.
+        Args:
+            matrix: The square matrix (list of lists of floats).
+        Returns:
+            The determinant of the matrix (float).
+        Raises:
+            TypeError: If input is not a matrix (list of lists).
+            ValueError: If the matrix is not square.
         if not (isinstance(matrix, list) and all(isinstance(row, list) for row in matrix)):
             raise TypeError("Input must be a matrix (list of lists).")
 
@@ -101,12 +133,12 @@ class Calculator:
             return matrix[0][0]
         elif n == 2:
             return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0]
-        
+
         determinant = 0
         for c in range(n):
             minor_matrix = [row[:c] + row[c+1:] for row in (matrix[:0] + matrix[1:])]
             determinant += ((-1) ** c) * matrix[0][c] * self.matrix_determinant(minor_matrix)
-        
+
         self.last_result = determinant
         self.history.append(('matrix_determinant', matrix, determinant))
         return determinant
