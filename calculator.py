@@ -2,6 +2,10 @@
 A simple calculator module with basic arithmetic operations.
 This module has some intentional issues and areas for improvement.
 """
+class DivisionByZeroError(Exception):
+    """Custom exception for division by zero."""
+    pass
+
 
 class Calculator:
     def __init__(self):
@@ -33,7 +37,7 @@ class Calculator:
     def divide(self, x: float, y: float) -> float:
         """Divide x by y."""
         if y == 0:
-            raise ValueError("Division by zero")
+            raise DivisionByZeroError("Division by zero")
         result = x / y
         self.last_result = result
         self.history.append(('divide', x, y, result))
@@ -46,4 +50,4 @@ class Calculator:
     def clear_history(self):
         """Clear calculation history."""
         self.history = []
-        self.last_result = None 
+        self.last_result = None
